@@ -5,7 +5,7 @@ Este é um projeto simples e educacional criado para facilitar a construção de
 
 O objetivo do script é educativo e pretende mostrar como combinar ferramentas de *web scraping*, manipulação de arquivos e conversão de formatos para resolver problemas reais de forma prática.  
 
-Este projeto foi desenvolvido com a ajuda do ChatGPT, que auxiliou na idealização, codificação e documentação.  
+Este projeto foi desenvolvido com a ajuda do ChatGPT, que auxiliou na codificação.  
 
 ---
 
@@ -45,12 +45,12 @@ Verifique se a instalação foi concluída com sucesso:
 ### **1. Clone este Repositório**  
 Faça o clone para o seu computador:  
 ```bash
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
-cd nome-do-repositorio
+https://github.com/Leonardominikovski/GutenbergGrabber.git
+cd GutenbergGrabber
 ```  
 
 ### **2. Configure o Script**  
-Abra o arquivo `testeguten1.py` e configure os seguintes parâmetros no início do código:  
+Abra o arquivo `gutenberg.py` e configure os seguintes parâmetros no início do código:  
 - **`search_url`:** URL de busca para definir o tema dos livros (ex.: "philosophy", "science", etc.).  
 - **`download_folder`:** Nome da pasta onde os livros serão armazenados.  
 
@@ -63,7 +63,7 @@ download_folder = "gutenberg_science"
 ### **3. Execute o Script**  
 Execute o script no terminal:  
 ```bash
-python testeguten1.py
+python3 gutenberg.py
 ```  
 
 ### **4. Verifique os Resultados**  
@@ -110,17 +110,6 @@ def download_book(book_url):
         for chunk in requests.get(download_link, stream=True).iter_content(chunk_size=8192):
             f.write(chunk)
 ```
-
----
-
-## **Licença**  
-Este projeto é licenciado sob a [Licença MIT](LICENSE), permitindo seu uso para fins educacionais e pessoais.  
-
----
-
-## **Agradecimentos**  
-- **Projeto Gutenberg:** Por disponibilizar livros gratuitos e acessíveis para todos.  
-- **ChatGPT:** Pela ajuda na concepção, desenvolvimento e documentação do projeto.  
 
 Se tiver dúvidas ou sugestões, contribua abrindo issues ou enviando um pull request! 
 
