@@ -45,7 +45,7 @@ Verifique se a instalação foi concluída com sucesso:
 ### **1. Clone este Repositório**  
 Faça o clone para o seu computador:  
 ```bash
-https://github.com/Leonardominikovski/GutenbergGrabber.git
+git clone https://github.com/Leonardominikovski/GutenbergGrabber.git
 cd GutenbergGrabber
 ```  
 
