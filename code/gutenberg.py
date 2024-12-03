@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 import subprocess
 import tkinter as tk
 from tkinter import simpledialog
+import time
 
 def start_download():
     search_query = entry_query.get()  
@@ -83,6 +84,8 @@ def start_download():
         
         if file_name.endswith('.epub'):
             convert_epub_to_pdf(file_path)
+
+     time.sleep(2)
     
     def convert_epub_to_pdf(epub_file_path):
         pdf_file_path = epub_file_path.replace(".epub", ".pdf")
@@ -103,7 +106,9 @@ def start_download():
                 download_book(book_link)
             except Exception as e:
                 print(f"Erro ao baixar {book_link}: {e}")
-
+                
+                time.sleep(3)
+                
 root = tk.Tk()
 root.title("GutenbergGrabber")
 
