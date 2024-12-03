@@ -58,6 +58,7 @@ Primeiro, clone o repositório para sua máquina:
 
 git clone https://github.com/Leonardominikovski/GutenbergGrabber.git
 cd GutenbergGrabber
+cd code
 
 2. Configure o Script
 
