@@ -1,5 +1,7 @@
 # GutenbergGrabber
 
+![GutenbergGrabber Logo](assets/logo.png)
+
 ### **Descrição do Projeto**  
 Este é um projeto simples e educacional criado para facilitar a construção de bibliotecas pessoais utilizando o vasto acervo de livros gratuitos do [Projeto Gutenberg](https://www.gutenberg.org). O objetivo principal foi criar uma solução prática e funcional para meu uso pessoal, agora arquivada aqui como referência e aprendizado.
 
