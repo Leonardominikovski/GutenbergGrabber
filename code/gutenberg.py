@@ -89,15 +89,17 @@ def start_download():
     time.sleep(2)  
     
     def convert_epub_to_pdf(epub_file_path):
-  
+    """Converte um arquivo EPUB para PDF usando Calibre."""
     pdf_file_path = epub_file_path.replace(".epub", ".pdf")
     try:
+        # Chamar o Calibre ebook-convert
         subprocess.run(['ebook-convert', epub_file_path, pdf_file_path], check=True)
         print(f"Arquivo convertido com sucesso: {pdf_file_path}")
     except subprocess.CalledProcessError as e:
         print(f"Erro na conversão do arquivo {epub_file_path} para PDF: {e}")
         return None
     return pdf_file_path
+
     
     books_per_page = 25
     page_links = [f"{search_url}{i}" for i in range(1, total_books + 1, books_per_page)]
