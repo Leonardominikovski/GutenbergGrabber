@@ -1,7 +1,7 @@
 # GutenbergGrabber
 
 ### **Descrição do Projeto**  
-Este é um projeto simples e educacional criado para facilitar a construção de bibliotecas pessoais utilizando o vasto acervo de livros gratuitos do [Projeto Gutenberg](https://www.gutenberg.org). Ele automatiza o processo de busca, download e organização de livros, tornando mais acessível o acesso à literatura clássica em formatos como PDF e EPUB.  
+Este é um projeto simples e educacional criado para facilitar a construção de bibliotecas pessoais utilizando o vasto acervo de livros gratuitos do [Projeto Gutenberg](https://www.gutenberg.org). O objetivo principal foi criar uma solução prática e funcional para meu uso pessoal, agora arquivada aqui como referência e aprendizado.
 
 O objetivo do script é educativo e pretende mostrar como combinar ferramentas de *web scraping*, manipulação de arquivos e conversão de formatos para resolver problemas reais de forma prática.  
 
@@ -18,100 +18,99 @@ Este projeto foi desenvolvido com a ajuda do ChatGPT, que auxiliou na codificaç
 
 ---
 
-## **Pré-requisitos**  
+Requisitos para Executar o Projeto
 
-### **1. Instale o Python 3.x**  
-Para executar o script, é necessário ter o Python instalado.  
-- Instale as bibliotecas necessárias:  
-  ```bash
-  pip install requests beautifulsoup4
-  ```  
+Antes de rodar o script, você precisará instalar algumas dependências. Aqui estão os requisitos:
+1. Python 3.x
 
-### **2. Instale o Calibre**  
-O *Calibre* é usado para converter arquivos EPUB em PDF. No Linux, você pode instalá-lo com:  
-  ```bash
-  sudo apt update
-  sudo apt install calibre -y
-  ```  
-Verifique se a instalação foi concluída com sucesso:  
-  ```bash
-  ebook-convert --version
-  ```  
+Este projeto é desenvolvido em Python. Você pode verificar se o Python está instalado rodando o comando:
 
----
+python3 --version
 
-## **Como Usar**  
+Se não tiver o Python instalado, pode baixá-lo [aqui](https://www.python.org/downloads/).
+2. Instalar Bibliotecas do Python
 
-### **1. Clone este Repositório**  
-Faça o clone para o seu computador:  
-```bash
+O script depende de algumas bibliotecas externas que precisam ser instaladas. Utilize o pip para instalá-las:
+
+pip install requests beautifulsoup4
+
+Essas bibliotecas são responsáveis pela execução de requisições HTTP (requests) e pelo processamento do HTML das páginas do Projeto Gutenberg (beautifulsoup4).
+3. Instalar o Calibre para Conversão de EPUB para PDF
+
+O script utiliza o Calibre para converter arquivos EPUB para PDF. Você pode instalar o Calibre com o comando:
+
+sudo apt update
+sudo apt install calibre -y
+
+O Calibre deve estar acessível no terminal como ebook-convert. Para verificar se a instalação foi bem-sucedida, execute:
+
+ebook-convert --version
+
+Se o Calibre não estiver instalado ou configurado corretamente, a conversão de EPUB para PDF não funcionará.
+Como Usar o Script
+
+Este script inclui uma interface gráfica simples, usando a biblioteca Tkinter, para facilitar o uso. Aqui está o passo a passo de como utilizá-lo:
+1. Clone o Repositório
+
+Primeiro, clone o repositório para sua máquina:
+
 git clone https://github.com/Leonardominikovski/GutenbergGrabber.git
 cd GutenbergGrabber
-```  
 
-### **2. Configure o Script**  
-Abra o arquivo `gutenberg.py` e configure os seguintes parâmetros no início do código:  
-- **`search_url`:** URL de busca para definir o tema dos livros (ex.: "philosophy", "science", etc.).  
-- **`download_folder`:** Nome da pasta onde os livros serão armazenados.  
+2. Configure o Script
 
-Por exemplo, para buscar livros sobre ciência:  
-```python
-search_url = "https://www.gutenberg.org/ebooks/search/?query=science&submit_search=Go%21&start_index="
-download_folder = "gutenberg_science"
-```  
+O script não requer configurações complicadas. Basta definir o termo de pesquisa, quantidade de livros a serem baixados e nome da pasta onde os livros serão salvos diretamente na interface gráfica.
+3. Executando o Script
 
-### **3. Execute o Script**  
-Execute o script no terminal:  
-```bash
+Abra um terminal na pasta onde o repositório foi clonado e execute o script:
+
 python3 gutenberg.py
-```  
 
-### **4. Verifique os Resultados**  
-- Os livros baixados estarão na pasta especificada.  
-- Arquivos EPUB serão automaticamente convertidos para PDF.  
+Isso abrirá a interface gráfica, onde você poderá inserir:
 
----
+    Termo de pesquisa (ex: "philosophy", "shakespeare").
+    Quantidade de livros que deseja baixar.
+    Nome da pasta onde os livros serão salvos.
 
-## **Explicação do Código**  
+Depois de preencher as informações, clique no botão "Iniciar Download". O script irá:
 
-Aqui estão alguns detalhes sobre como o script funciona:  
+    Realizar a busca no Projeto Gutenberg com o termo inserido.
+    Baixar os livros em formatos PDF ou EPUB.
+    Converter os arquivos EPUB para PDF (se necessário).
+    Salvar os arquivos na pasta indicada.
 
-1. **Busca de Livros:**  
-   O script acessa o site do Projeto Gutenberg, utilizando a URL base configurada. A função `get_book_links` localiza os links dos livros disponíveis na página e retorna uma lista.  
+4. Resultados
 
-2. **Download de Livros:**  
-   A função `download_book` acessa a página de cada livro, identifica os formatos disponíveis (PDF ou EPUB) e baixa o arquivo para a pasta configurada.  
+Os livros serão baixados e salvos na pasta que você definiu. Se algum livro for no formato EPUB, ele será convertido automaticamente para PDF e armazenado na mesma pasta.
+Explicação Detalhada do Código
 
-3. **Conversão de Formatos:**  
-   Se o arquivo baixado for um EPUB, a função `convert_epub_to_pdf` usa o comando `ebook-convert` do *Calibre* para convertê-lo em PDF.  
+Agora que você sabe como usar o script, vamos explicar em detalhes como ele funciona.
+1. Importações e Inicializações
 
-4. **Processamento em Lote:**  
-   O script percorre várias páginas de resultados com base no parâmetro `total_books` (configurado para processar até 5000 livros).  
+No início do código, importamos as bibliotecas necessárias para rodar o script:
 
-**Exemplo de Trecho do Código:**  
+    requests: Usada para enviar requisições HTTP e acessar as páginas de livros do Projeto Gutenberg.
+    BeautifulSoup: Usada para processar o HTML das páginas e extrair os links de download dos livros.
+    subprocess: Usada para executar o comando ebook-convert do Calibre, convertendo arquivos EPUB para PDF.
+    tkinter: Usada para criar a interface gráfica onde o usuário pode interagir com o script.
 
-```python
-def download_book(book_url):
-    """Baixa o livro e converte se necessário."""
-    # Acessa a página do livro
-    response = requests.get(book_url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    
-    # Encontra o link para download
-    formats = soup.select("a[type='text/plain'], a[href$='.epub.noimages'], a[href$='.pdf']")
-    # Prioriza PDF ou busca por EPUB
-    download_link = next((urljoin(base_url, f['href']) for f in formats if '.pdf' in f['href']), None)
-    if not download_link:
-        download_link = next((urljoin(base_url, f['href']) for f in formats if '.epub' in f['href']), None)
-    
-    # Realiza o download
-    file_name = title + (".pdf" if ".pdf" in download_link else ".epub")
-    with open(os.path.join(download_folder, file_name), "wb") as f:
-        for chunk in requests.get(download_link, stream=True).iter_content(chunk_size=8192):
-            f.write(chunk)
-```
+2. Função start_download()
 
-Se tiver dúvidas ou sugestões, contribua abrindo issues ou enviando um pull request! 
+Essa função é chamada quando o usuário clica no botão da interface gráfica. Ela coleta os dados inseridos pelo usuário (termo de pesquisa, quantidade de livros, nome da pasta) e inicia o processo de download.
+3. Função get_book_links(page_url)
 
+Essa função faz uma requisição para cada página de resultados no Projeto Gutenberg e extrai os links dos livros. Ela usa o BeautifulSoup para processar o HTML e encontrar os links corretos.
+4. Função download_book(book_url)
 
-    
+Depois de coletar os links dos livros, essa função acessa cada um dos links, encontra os formatos de download (PDF ou EPUB) e baixa os arquivos para a pasta definida. Se o livro for um EPUB, ele será convertido para PDF.
+5. Função convert_epub_to_pdf()
+
+Se o livro for um arquivo EPUB, ele será convertido para PDF usando o comando ebook-convert do Calibre.
+6. Interface Gráfica (Tkinter)
+
+A interface gráfica permite ao usuário inserir o termo de pesquisa, quantidade de livros e nome da pasta de forma intuitiva. Ela usa o Tkinter para coletar as entradas do usuário e iniciar o processo de download.
+7. Navegação por Páginas
+
+O script gera uma lista de links de páginas de resultados do Projeto Gutenberg. Ele usa o parâmetro start_index para navegar pelas páginas e buscar os livros em diferentes páginas de resultados.
+
+ se você tiver sugestões ou melhorias, sinta-se à vontade para contribuir. Abra issues ou envie pull requests com suas alterações!
