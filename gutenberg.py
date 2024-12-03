@@ -6,25 +6,20 @@ import subprocess
 import tkinter as tk
 from tkinter import simpledialog
 
-# Função para iniciar o download
 def start_download():
-    search_query = entry_query.get()  # Termo de pesquisa
-    total_books = int(entry_books.get())  # Quantidade de livros
-    download_folder = entry_folder.get()  # Nome da pasta
+    search_query = entry_query.get()  
+    total_books = int(entry_books.get()) 
+    download_folder = entry_folder.get()  
     
-    # Validar entrada
     if not search_query or total_books <= 0 or not download_folder:
         print("Por favor, preencha todos os campos corretamente.")
         return
     
-    # Gerar URL de pesquisa
     base_url = "https://www.gutenberg.org"
     search_url = f"https://www.gutenberg.org/ebooks/search/?query={search_query}&submit_search=Go%21&start_index="
     
-    # Criar a pasta de download, se não existir
     os.makedirs(download_folder, exist_ok=True)
     
-    # Função para obter links de livros
     def get_book_links(page_url):
         response = requests.get(page_url)
         if response.status_code != 200:
@@ -35,7 +30,6 @@ def start_download():
         links = [base_url + a['href'] for a in soup.select('.booklink a') if '/ebooks/' in a['href']]
         return links
     
-    # Função para download e conversão
     def download_book(book_url):
         response = requests.get(book_url)
         if response.status_code != 200:
@@ -90,7 +84,6 @@ def start_download():
         if file_name.endswith('.epub'):
             convert_epub_to_pdf(file_path)
     
-    # Função para converter EPUB para PDF
     def convert_epub_to_pdf(epub_file_path):
         pdf_file_path = epub_file_path.replace(".epub", ".pdf")
         try:
@@ -99,11 +92,9 @@ def start_download():
         except subprocess.CalledProcessError as e:
             print(f"Erro na conversão do arquivo {epub_file_path} para PDF: {e}")
     
-    # Páginas de livros: vamos incrementar o start_index de 1 até o total de livros configurado
     books_per_page = 25
     page_links = [f"{search_url}{i}" for i in range(1, total_books + 1, books_per_page)]
     
-    # Fazer scraping e download
     for page in page_links:
         print(f"Processando página: {page}")
         book_links = get_book_links(page)
@@ -113,11 +104,9 @@ def start_download():
             except Exception as e:
                 print(f"Erro ao baixar {book_link}: {e}")
 
-# Criação da janela do Tkinter
 root = tk.Tk()
 root.title("GutenbergGrabber")
 
-# Criar os campos de entrada
 tk.Label(root, text="Termo de Pesquisa:").pack()
 entry_query = tk.Entry(root, width=50)
 entry_query.pack()
@@ -130,8 +119,6 @@ tk.Label(root, text="Nome da Pasta de Download:").pack()
 entry_folder = tk.Entry(root, width=50)
 entry_folder.pack()
 
-# Botão para iniciar o download
 tk.Button(root, text="Iniciar Download", command=start_download).pack()
 
-# Iniciar a interface gráfica
 root.mainloop()
