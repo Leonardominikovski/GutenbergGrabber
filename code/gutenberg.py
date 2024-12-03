@@ -5,12 +5,11 @@ from urllib.parse import urljoin
 import subprocess
 import tkinter as tk
 from tkinter import simpledialog
-import time
 
 def start_download():
-    search_query = entry_query.get()  
-    total_books = int(entry_books.get()) 
-    download_folder = entry_folder.get()  
+    search_query = entry_query.get()  # Termo de pesquisa
+    total_books = int(entry_books.get())  # Quantidade de livros
+    download_folder = entry_folder.get()  # Nome da pasta
     
     if not search_query or total_books <= 0 or not download_folder:
         print("Por favor, preencha todos os campos corretamente.")
@@ -82,41 +81,31 @@ def start_download():
         
         print(f"Baixado: {file_name}")
         
-      
-    if file_name.endswith('.epub'):
-        convert_epub_to_pdf(file_path)
-
-    time.sleep(2)  
+        if file_name.endswith('.epub'):
+            convert_epub_to_pdf(file_path)
     
     def convert_epub_to_pdf(epub_file_path):
-    
-    pdf_file_path = epub_file_path.replace(".epub", ".pdf")
-    try:
-        # Chamar o Calibre ebook-convert
-        subprocess.run(['ebook-convert', epub_file_path, pdf_file_path], check=True)
-        print(f"Arquivo convertido com sucesso: {pdf_file_path}")
-    except subprocess.CalledProcessError as e:
-        print(f"Erro na conversão do arquivo {epub_file_path} para PDF: {e}")
-        return None
-    return pdf_file_path
-
+        pdf_file_path = epub_file_path.replace(".epub", ".pdf")
+        try:
+            subprocess.run(['ebook-convert', epub_file_path, pdf_file_path], check=True)
+            print(f"Arquivo convertido com sucesso: {pdf_file_path}")
+        except subprocess.CalledProcessError as e:
+            print(f"Erro na conversão do arquivo {epub_file_path} para PDF: {e}")
     
     books_per_page = 25
     page_links = [f"{search_url}{i}" for i in range(1, total_books + 1, books_per_page)]
     
-  for page in page_links:
-    print(f"Processando página: {page}")
-    book_links = get_book_links(page)
-    for book_link in book_links:
-        try:
-            download_book(book_link)
-        except Exception as e:
-            print(f"Erro ao baixar {book_link}: {e}")
-            time.sleep(3)  
+    for page in page_links:
+        print(f"Processando página: {page}")
+        book_links = get_book_links(page)
+        for book_link in book_links:
+            try:
+                download_book(book_link)
+            except Exception as e:
+                print(f"Erro ao baixar {book_link}: {e}")
 
 root = tk.Tk()
 root.title("GutenbergGrabber")
-
 
 tk.Label(root, text="Termo de Pesquisa:").pack()
 entry_query = tk.Entry(root, width=50)
