@@ -89,7 +89,7 @@ def start_download():
     time.sleep(2)  
     
     def convert_epub_to_pdf(epub_file_path):
-    """Converte um arquivo EPUB para PDF usando Calibre."""
+    
     pdf_file_path = epub_file_path.replace(".epub", ".pdf")
     try:
         # Chamar o Calibre ebook-convert
